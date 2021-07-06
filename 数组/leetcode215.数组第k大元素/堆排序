@@ -26,7 +26,7 @@ public:
         int right = index*2+2;
         int maxindex = index;
         if(left<len && nums[left]>nums[index]) maxindex = left;
-        if(right<len && nums[right]>nums[left]) maxindex = right;
+        if(right<len && nums[right]>nums[left] && nums[right]>nums[index]) maxindex = right;
         if(maxindex !=index){
             swap(nums[index],nums[maxindex]);
             adjust(nums,maxindex,len);
