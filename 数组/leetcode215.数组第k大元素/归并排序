@@ -1,0 +1,46 @@
+class Solution {
+public:
+    int findKthLargest(vector<int>& nums, int k) {
+        int len = nums.size();
+        int start1=0,end1=0;
+        int start2=0,end2=0;
+        for(int seg=1;seg<len;seg=seg+seg){
+            vector<int> temp(len,0);
+            for(int start=0;start<len;start=start+2*seg){
+                start1=start;end1=min(start+seg,len);
+                start2=min(start+seg,len);end2=min(start+2*seg,len);
+                int index=start;
+                while(start1<end1 && start2<end2){
+                    if(nums[start1]>nums[start2]){
+                        temp[index++]=nums[start1++];
+                    }
+                    else{
+                        temp[index++]=nums[start2++];
+                    }
+                }
+                while(start1<end1){
+                    temp[index++]=nums[start1++];
+                }
+                while(start2<end2){
+                    temp[index++]=nums[start2++];
+                }
+                // if(seg==2){
+                //     for(int k=0 ; k<temp.size() ; k++){
+                //         cout << temp[k] <<endl;
+                //      }
+                // }
+
+            }
+            nums=temp;
+        }
+
+
+        for(int k=0 ; k<nums.size() ; k++){
+            cout << nums[k] <<endl;
+        }
+        return nums[k-1];
+    }
+
+
+
+};
