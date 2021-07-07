@@ -1,0 +1,73 @@
+//1、快速排序
+/*将数组中某一个元素m作为划分依据,即m=arr[0]。若m前面的元素个数大于k，则第k小的数一定在m前面的元素中，
+这时我们只需要继续在m前面的元素中找第k小的数；若m前面的元素小于k，则第k小的数一定在m后面的元素中，
+这时我们只需要在m后面的元素中找第k小的数；*/
+class Solution {
+public:
+    int findKthLargest(vector<int>& nums, int k) {
+        myfunction(0,nums.size()-1,nums,k);
+        for(int k=0 ; k<nums.size() ; k++){
+            cout << nums[k] <<endl;
+        }
+        return nums[nums.size()-k];
+    }
+    void myfunction(int left,int right,vector<int>& nums,int k){
+        if(left>=right) return;
+        int base = nums[left];
+        int i = left, j = right;  
+        while(i<j){
+            while(nums[j]>base && i<j){
+                j--;
+            }
+            while(nums[i]<=base && i<j){
+                i++;
+            }
+            if(i < j){
+                int temp = nums[i];
+                nums[i] = nums[j];
+                nums[j] = temp;
+            }
+        }
+        nums[left] = nums[i];
+        nums[i] = base;
+        if(nums.size()-k==i) return;
+        if(nums.size()-k>i) myfunction(i+1,right,nums,k);
+        if(nums.size()-k<i) myfunction(left,i-1,nums,k);
+    }
+};
+
+
+
+
+
+
+
+//2、堆排序
+class Solution {
+public:
+    int findKthLargest(vector<int>& nums, int k) {
+        build(nums);
+        int len=nums.size();
+        for(int i=1;i<=k;i++){//只需要前k个
+            swap(nums[0],nums[len-i]);
+            adjust(nums,0,len-i);
+        }
+        return nums[nums.size()-k];
+    }
+    void build(vector<int>& nums){
+        for(int i=nums.size()/2-1;i>=0;i--){
+            adjust(nums,i,nums.size());
+        }
+    }
+    void adjust(vector<int>& nums, int index,int len){
+        int left = index*2+1;
+        int right = index*2+2;
+        int maxindex = index;
+        if(left<len && nums[left]>nums[index]) maxindex = left;
+        if(right<len && nums[right]>nums[left] && nums[right]>nums[index]) maxindex = right;
+        if(maxindex !=index){
+            swap(nums[index],nums[maxindex]);
+            adjust(nums,maxindex,len);
+        }
+    }
+};
