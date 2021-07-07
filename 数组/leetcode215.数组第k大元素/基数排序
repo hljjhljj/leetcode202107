@@ -1,0 +1,45 @@
+//普通的基数排序不支持负数，所以在这里会出错
+class Solution {
+public:
+    int findKthLargest(vector<int>& nums, int k) {
+    //基数排序
+        int bit=maxbit(nums);
+        int len=nums.size();     
+        for(int k=1;k<=bit;k++){
+            int i=pow(10,k-1);
+            vector<int> temp(len,0);
+            vector<int> count(10,0);
+            for(int j=0;j<len;j++){
+                count[(nums[j]/i)%10]++;
+            }
+            for(int j=1;j<10;j++){
+                count[j]=count[j]+count[j-1];
+            }
+            for(int j=len-1;j>=0;j--){//注意倒序收集桶
+                temp[count[(nums[j]/i)%10]-1]=nums[j];
+                count[(nums[j]/i)%10]--;
+            }
+            nums=temp;
+        }
+
+       
+        // for(int k=0 ; k<nums.size() ; k++){
+        //     cout << nums[k] <<endl; 
+        // }
+        return nums[len-k];
+    }
+
+    int maxbit(vector<int>& nums){
+        int max=nums[0];
+        for(int i=0;i<nums.size();i++){
+            max=nums[i]>max?nums[i]:max;
+        }
+        int bit=0;
+        while(max>0){
+            bit++;
+            max/=10;
+        }
+        return bit;
+    }
+    
+};
