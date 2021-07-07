@@ -3,7 +3,6 @@ public:
     int findKthLargest(vector<int>& nums, int k) {
         myfunction(0,nums.size()-1,nums);
         return nums[nums.size()-k];
-        
     }
     void myfunction(int left,int right,vector<int>& nums){
         if(left>=right) return;
@@ -22,14 +21,8 @@ public:
                 nums[j] = temp;
             }
         }
-
-
-        if(i == j){
-            nums[left] = nums[i];
-            nums[i] = base;
-        }
-        
-
+        nums[left] = nums[i];
+        nums[i] = base;
         myfunction(left,i-1,nums);
         myfunction(i+1,right,nums);
     }
