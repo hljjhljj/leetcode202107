@@ -3,16 +3,13 @@ public:
     int findKthLargest(vector<int>& nums, int k) {
 
 
-        for(int i=0;i<nums.size();i++){
-            int flag = i;
-            for(int j=i;j<nums.size();j++){
-                if(nums[j]<nums[flag]){
-                    flag = j;
-                }
+        for(int i=1;i<nums.size();i++){
+            int tmp = nums[i];
+            int j;
+            for(j=i-1;j>=0&&nums[j]>tmp;j--){//nums[j]>tmp不能放在for里面，因为当大于时要及时跳出循环
+                nums[j+1]=nums[j];
             }
-            int temp = nums[flag];
-            nums[flag] = nums[i];
-            nums[i]=temp;
+            nums[j+1]=tmp;
         }
 
         for(int k=0 ; k<nums.size() ; k++){
