@@ -1,0 +1,29 @@
+class Solution {
+public:
+    int findKthLargest(vector<int>& nums, int k) {
+    //计数排序
+        int len=nums.size();
+        int min=nums[0],max=nums[0];
+        for(int i=0;i<len;i++){
+            if(nums[i]<min) min=nums[i];
+            if(nums[i]>max) max=nums[i];
+        }
+        vector<int> bucket(max-min+1,0);
+        for(int i=0;i<len;i++){
+            bucket[nums[i]-min]++; 
+        }
+        int count=k;
+        for(int i=max-min;i>=0;i--){
+            // if(bucket[i]==0) continue;
+            if(bucket[i]>=count) return i+min;
+            count=count-bucket[i];
+        }
+        return 0;
+
+        // for(int k=0 ; k<nums.size() ; k++){
+        //     cout << nums[k] <<endl; 
+        // }
+        // return nums[k-1];
+    }
+    
+};
