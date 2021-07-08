@@ -1,0 +1,13 @@
+class Solution {
+public:
+    bool hasCycle(ListNode *head) {
+        //if(!head) return false; //情况包含在while里了
+        ListNode *fast=head,*slow=head;
+        while(fast && fast->next){
+            fast=fast->next->next;
+            slow=slow->next;
+            if(slow == fast) return true;  //slow被fast检测过了肯定不是null。所以相等也肯定不是因为Null相等的。
+        }
+        return false;
+    }
+};
