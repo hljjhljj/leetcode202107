@@ -1,0 +1,19 @@
+class Solution {
+public:
+    string addStrings(string num1, string num2) {
+        string res="";
+        int index1=num1.size()-1,index2=num2.size()-1;
+        int flag=0;
+        while(index1>=0 || index2>=0 || flag!=0){//注意1+9的时候，这时flag!=0起作用
+            int i,j,sum=0;
+            i=index1>=0?(num1[index1]-'0'):0;
+            j=index2>=0?(num2[index2]-'0'):0;
+            sum=flag+i+j;
+            flag=sum/10;
+            res.push_back('0'+sum%10);
+            index1--;index2--;
+        }
+        reverse(res.begin(),res.end());
+        return res;
+    }
+};
