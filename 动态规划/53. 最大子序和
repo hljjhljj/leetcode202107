@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int maxSubArray(vector<int>& nums) {
+        //动态规划，一般来说dp存的就是最后的结果，但这里不是
+        //dp[i]表示nums中以nums[i]结尾的最大子序和
+        //实际结果一直在result里更新
+        int len=nums.size();
+        if(len<=1) return nums[0];
+        int dp[len];
+        dp[0]=nums[0];
+        int result=dp[0];
+        for(int i=1;i<len;i++){
+            //dp[i]=要么续上上面的子序列，要么从i重新开始子序列
+            dp[i]=max(dp[i-1]+nums[i],nums[i]);
+            result=max(result,dp[i]);
+        }
+        return result;
+    }
+};//其实还可以空间优化，但太简单不写了
