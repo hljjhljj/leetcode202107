@@ -1,0 +1,41 @@
+//1、BFS（非递归），层序遍历，保存每层的最后一个节点
+class Solution {
+public:
+    vector<int> rightSideView(TreeNode* root) {
+        vector<int> res;
+        if(!root) return res;
+        queue<TreeNode*> queue;
+        queue.push(root);
+        while(!queue.empty()){
+            int count=queue.size();
+            int temp;
+            for(;count>0;count--){
+                root=queue.front();
+                queue.pop();
+                temp=root->val;
+                if(root->left) queue.push(root->left);
+                if(root->right) queue.push(root->right);
+            }
+            res.push_back(temp);
+        }
+        return res;
+    }
+};
+
+//2、DFS（递归），根→右子节点→左子节点，即可保证【每层】第一个访问的是最右侧的节点
+class Solution {
+public:
+    vector<int> res;
+    vector<int> rightSideView(TreeNode* root) {
+        myfunction(root,1);
+        return res;
+    }
+    void myfunction(TreeNode* root,int depth){
+        if(!root) return;
+        if(depth>res.size()) res.push_back(root->val);
+        //如果depth>res.size()，说明是第一次访问本层，因此push
+        myfunction(root->right,depth+1);
+        myfunction(root->left,depth+1);
+        return;
+    }
+};
