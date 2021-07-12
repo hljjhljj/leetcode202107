@@ -1,0 +1,58 @@
+//1、递归法
+class Solution {
+public:
+    vector<int> preorderTraversal(TreeNode* root) {
+        vector<int> res;
+        myfunction(res,root);
+        return res;
+    }
+    void myfunction(vector<int>& res,TreeNode* root){
+        if(!root) return;
+        res.push_back(root->val);
+        myfunction(res,root->left);
+        myfunction(res,root->right);
+        return;
+    }
+};
+
+//2、非递归1（手算思想，比较普遍）
+class Solution {
+public:
+    vector<int> preorderTraversal(TreeNode* root) {
+        vector<int> res;
+        stack<TreeNode*> stack;
+        while(!stack.empty() || root){
+            while(root){
+                res.push_back(root->val);
+                stack.push(root);
+                root=root->left;
+            }
+            root=stack.top()->right;
+            stack.pop();
+        }
+        return res;
+    }
+
+};
+
+//3、非递归（不通用）
+//栈的思想，按层次倒着进栈，利用后进先出解决顺序问题
+class Solution {
+public:
+    vector<int> inorderTraversal(TreeNode* root) {
+        vector<int> res;  
+        if(!root) return res;
+        stack<TreeNode* > stack;
+        while(!stack.empty() || root){
+            while(root){
+                stack.push(root);
+                root=root->left;
+            }
+            root=stack.top();
+            stack.pop();
+            res.push_back(root->val);
+            root=root->right;
+        }
+        return res;
+    }
+};
