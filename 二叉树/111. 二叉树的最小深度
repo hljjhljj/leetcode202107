@@ -1,0 +1,15 @@
+//1、递归法，注意和最大深度不一样！
+class Solution {
+public:
+    int minDepth(TreeNode* root) {
+        if(!root) return 0;
+        else if(root->left && root->right)
+            return min(minDepth(root->left),minDepth(root->right))+1;
+        //实际包含了左右子节点都为空时，节点深度为0+0+1=1;
+        else if(root->left) return minDepth(root->left)+1;
+        else return minDepth(root->right)+1;//if(root->right)
+    }
+};
+
+//BFS，DFS遍历
+//其中BFS可以在找到第一个叶子节点的时直接返回，DFS就必须遍历完
