@@ -1,0 +1,37 @@
+//1、递归法
+class Solution {
+public:
+    vector<int> inorderTraversal(TreeNode* root) {
+        vector<int> res;    
+        myfunction(res,root);
+        return res;
+    }
+    void myfunction(vector<int>& res,TreeNode* root){
+        if(!root) return;
+        myfunction(res,root->left);
+        res.push_back(root->val);
+        myfunction(res,root->right);
+        return;
+    }
+};
+
+//2、非递归
+class Solution {
+public:
+    vector<int> inorderTraversal(TreeNode* root) {
+        vector<int> res;  
+        if(!root) return res;
+        stack<TreeNode* > stack;
+        while(!stack.empty() || root){
+            while(root){
+                stack.push(root);
+                root=root->left;
+            }
+            root=stack.top();
+            stack.pop();
+            res.push_back(root->val);
+            root=root->right;
+        }
+        return res;
+    }
+};
