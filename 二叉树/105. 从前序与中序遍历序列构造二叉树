@@ -1,0 +1,21 @@
+class Solution {
+public:
+    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
+        if(preorder.size()==0 && inorder.size()==0) return nullptr;
+        TreeNode* subroot = new TreeNode(preorder[0]);//作为根节点
+        int index=0;//根节点在中序遍历的位置
+        for(;index<inorder.size();index++){
+            if(inorder[index]==preorder[0]) break;
+        }
+        vector<int> pre1(preorder.begin()+1,preorder.begin()+index+1);
+        //preorder.begin()+index+1换成preorder.end()是不是更好理解
+        //end()这个迭代器返回的是【最后一个元素的后一位】
+        //所以，要【+1】，是个半闭半开的区间[)。后面两个也要注意
+        vector<int> pre2(preorder.begin()+index+1,preorder.end());
+        vector<int> inoder1(inorder.begin(),inorder.begin()+index);
+        vector<int> inoder2(inorder.begin()+index+1,inorder.end());
+        subroot->left=buildTree(pre1,inoder1);
+        subroot->right=buildTree(pre2,inoder2);
+        return subroot;
+    }
+};
