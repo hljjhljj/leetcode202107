@@ -1,0 +1,16 @@
+//左右子树高度差<=1的同时，左右子树本身也得是平衡二叉树
+class Solution {
+public:
+    bool isBalanced(TreeNode* root) {
+        return myfunction(root)==-1?false:true;
+    }
+    int myfunction(TreeNode* root){
+        if(!root) return 0;
+        int left=myfunction(root->left);
+        if(left==-1) return -1;//左子树不是平衡二叉树，直接截断
+        int right=myfunction(root->right);
+        if(right==-1) return -1;//右子树不是平衡二叉树，直接截断
+        if(abs(left-right)<2) return max(left,right)+1;
+        else return -1;
+    }
+};
