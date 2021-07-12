@@ -1,0 +1,68 @@
+//1、递归
+class Solution {
+public:
+    vector<int> postorderTraversal(TreeNode* root) {
+        vector<int> res;
+        myfunction(res,root);
+        return res;
+    }
+    void myfunction(vector<int>& res,TreeNode* root){
+        if(!root) return;
+        myfunction(res,root->left);
+        myfunction(res,root->right);
+        res.push_back(root->val);
+        return;
+    }
+};
+
+//2、非递归（使用pre标记）
+class Solution {
+public:
+    vector<int> postorderTraversal(TreeNode* root) {
+        vector<int> res;
+        if(!root) return res;
+        stack<TreeNode*> stack;
+        TreeNode* pre=nullptr;
+        while(!stack.empty() || root){
+            while(root){
+                stack.push(root);
+                root=root->left;
+            }
+            root=stack.top()->right;
+            if(!root || pre==root){
+                root=stack.top();
+                stack.pop();
+                res.push_back(root->val);
+                pre=root;
+                root=nullptr;//非常重要！！！不然就会无限循环了
+            }
+        }
+        return res;
+    }
+};
+
+//3、易于理解的双栈法
+class Solution {
+public:
+    vector<int> postorderTraversal(TreeNode* root) {
+        vector<int> res;
+        if(!root) return res;
+        stack<TreeNode*> stack,result;
+        while(!stack.empty() || root){
+            while(root){
+                stack.push(root);
+                result.push(root);
+                root=root->right;
+            }
+            if(!stack.empty()){
+                root=stack.top()->left;
+                stack.pop();
+            }
+        }
+        while(!result.empty()){
+            res.push_back(result.top()->val);
+            result.pop();
+        }
+        return res;
+    }
+};
