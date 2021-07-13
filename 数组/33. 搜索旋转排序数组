@@ -1,0 +1,21 @@
+//二分搜索的变种
+class Solution {
+public:
+    int search(vector<int>& nums, int target) {
+        int left=0,right=nums.size()-1;
+        while(left<=right){
+            int mid=(left+right)/2;
+            if(target==nums[mid]) return mid;
+            if(nums[left]<=nums[mid]){//left~mid有序
+                if(target<nums[mid] && target>=nums[left]) right=mid-1; //且target在此范围
+                //注意target>=nums[left]的等号，不然会漏掉
+                else left=mid+1;
+            }
+            else if(nums[mid]<=nums[right]){//mid~right有序，和上面那个一起包含了所有可能
+                if(target>nums[mid] && target<=nums[right]) left=mid+1;
+                else right=mid-1;
+            }
+        }
+        return -1;
+    }
+};
