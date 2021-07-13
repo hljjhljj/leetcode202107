@@ -1,0 +1,22 @@
+//1、动态规划做法
+class Solution {
+public:
+    int lengthOfLIS(vector<int>& nums) {
+        //动态规划。dp[i]代表以i为结尾的最长递增子序列长度
+        int len=nums.size();
+        vector<int> dp(len,1);//只有自己一个，不就长度为1
+        for(int i=0;i<len;i++){
+            for(int j=0;j<i;j++){
+                //dp[j]代表以j为结尾的【最长上升子序列长度】，+1代表把i接在后面
+                if(nums[i]>nums[j]) dp[i]=max(dp[i],dp[j]+1);
+            }
+        }
+        int res=0;
+        for(int i=0;i<len;i++){
+            res=max(res,dp[i]);
+        }
+        return res;
+    }
+};
+
+//二分查找做法。不常用，不记了
