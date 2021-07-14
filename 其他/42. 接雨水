@@ -1,0 +1,71 @@
+//1、暴力法
+class Solution {
+public:
+    int trap(vector<int>& height) {
+        //暴力解法。寻找每个节点左右的最大值。
+        int res=0;
+        for(int i=0;i<height.size();i++){
+            int left_max=0,right_max=0;
+            for(int j=0;j<=i;j++){//寻找左侧最高
+                left_max=max(left_max,height[j]);
+            }
+            for(int j=height.size()-1;j>=i;j--){
+                right_max=max(right_max,height[j]);
+            }
+            //左右最大值中的较小值决定了能接雨水的最大值
+            res=res+min(left_max,right_max)-height[i];
+        }
+        return res;
+    }
+};
+
+//2、备忘录优化
+class Solution {
+public:
+    int trap(vector<int>& height) {
+        //带备忘录的暴力解法。寻找每个节点左右的最大值。
+        int res=0,len=height.size();
+        if(!len) return 0;
+        //right_max left_max分别代表左右测的最大值
+        vector<int> right_max(len,0),left_max(len,0);
+        //防止数组出界
+        left_max[0]=height[0];right_max[len-1]=height[len-1];
+        for(int j=1;j<len;j++){//初始化备忘录
+            left_max[j]=max(left_max[j-1],height[j]);
+        }
+        for(int j=len-2;j>=0;j--){//初始化备忘录
+            right_max[j]=max(right_max[j+1],height[j]);
+        }
+        //开始计算结果
+        for(int i=0;i<height.size();i++){
+            //左右最大值中的较小值决定了能接雨水的最大值
+            res=res+min(left_max[i],right_max[i])-height[i];
+        }
+        return res;
+    }
+};
+
+//3、双指针解法
+class Solution {
+public:
+    int trap(vector<int>& height) {
+        //双指针解法。关键在于是左右两侧最大值中较小的那个限制了雨水的量
+        int res=0,len=height.size();
+        if(len==0) return 0;
+        int left=0,right=len-1;
+        int left_max=0,right_max=0;
+        while(left<=right){
+            left_max=max(left_max,height[left]);
+            right_max=max(right_max,height[right]);
+            if(left_max<right_max){
+                res=res+(left_max-height[left]);
+                left++;
+            }
+            else{
+                res=res+(right_max-height[right]);
+                right--;
+            }
+        }
+        return res;
+    }
+};
