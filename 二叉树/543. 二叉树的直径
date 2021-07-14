@@ -1,0 +1,15 @@
+class Solution {
+public:
+    int diameterOfBinaryTree(TreeNode* root) {
+        int res=0;
+        myfunction(root,res);
+        return res;
+    }
+    int myfunction(TreeNode* root,int& res){
+        if(!root) return 0;
+        int left=myfunction(root->left,res);
+        int right=myfunction(root->right,res);
+        res=max(left+right,res);
+        return max(left,right)+1;
+    }
+};
