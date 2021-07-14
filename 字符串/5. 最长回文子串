@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int start=0,maxlen=0;
+    string longestPalindrome(string s) {
+        //计算以从0到s.size()-1的最长回文串，在其中找出最大的
+        if(s.size()<=1) return s;
+        for(int i=0;i<s.size();i++){
+            myfunction(s,i,i);
+            myfunction(s,i,i+1);
+        }
+        return s.substr(start,maxlen);
+    }
+    void myfunction(string s,int i,int j){
+        //i和j是两个中心，i=j时是一个中心，否则j=i+1
+        while( i>=0 && j<s.size() && s.at(i)==s.at(j)){
+            i--;j++;
+        }
+        if(j-i-1>maxlen){//自己算清楚,len=j-1+1，但i多减了1，j多加了1
+            start=i+1;
+            maxlen=j-i-1;
+        }  
+        return;
+    }
+};
