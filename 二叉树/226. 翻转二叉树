@@ -1,0 +1,13 @@
+class Solution {
+public:
+    TreeNode* invertTree(TreeNode* root) {
+        //递归
+        if(!root) return nullptr;
+        //先用两个节点暂存一下结果，防止被覆盖
+        TreeNode* left=invertTree(root->left);
+        TreeNode* right=invertTree(root->right);
+        root->right=left;
+        root->left=right;
+        return root;
+    }
+};
