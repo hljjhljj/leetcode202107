@@ -1,0 +1,21 @@
+class Solution {
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        //快慢指针的方法。循环停止的时候，慢指针在被删除节点的【前一个】
+        if(!head) return head;
+        ListNode* prehead=new ListNode(0, head);
+        ListNode *slow=prehead,*fast=head;
+        //快指针实际上比慢指针快n+1。应该是默认不会出现n大于链表长度
+        for(int i=0;i<n;i++){
+            fast=fast->next;
+        }
+        while(fast){
+            slow=slow->next;
+            fast=fast->next;
+        }
+        slow->next=slow->next->next;
+        ListNode* ans=prehead->next;
+        prehead->next=nullptr;
+        return ans;
+    }
+};
