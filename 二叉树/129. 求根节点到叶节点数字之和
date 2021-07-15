@@ -1,0 +1,18 @@
+class Solution {
+public:
+   int res=0;
+    int sumNumbers(TreeNode* root) {
+        if(!root) return res;
+        myfunction(root,0);
+        return res;
+    }
+    void myfunction(TreeNode* root,int count){
+        if(!root->left && !root->right){//到达叶子节点
+            res=res+10*count+root->val;
+            return;
+        } 
+        if(root->left) myfunction(root->left,10*count+(root->val));
+        if(root->right) myfunction(root->right,10*count+(root->val));
+        return;
+    }
+};
