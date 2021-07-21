@@ -1,0 +1,30 @@
+//1、递归法：
+class Solution {
+public:
+    bool isSymmetric(TreeNode* root) {
+        return myfunction(root,root);
+    }
+    bool myfunction(TreeNode* r1,TreeNode* r2){
+        if(!r1 && !r2) return true;
+        if(!r1 || !r2) return false;
+        return r1->val==r2->val && myfunction(r1->left,r2->right) && myfunction(r1->right,r2->left);
+    }
+};
+
+//2、迭代法
+class Solution {
+public:
+    bool isSymmetric(TreeNode* root) {
+        queue<TreeNode*> q;
+        q.push(root);q.push(root);
+        while(!q.empty()){
+            auto u=q.front();q.pop();
+            auto v=q.front();q.pop();
+            if(!u && !v) continue;
+            if((!u || !v) || u->val!=v->val) return false;
+            q.push(u->left);q.push(v->right);
+            q.push(u->right);q.push(v->left);
+        }
+        return true;
+    }
+};
