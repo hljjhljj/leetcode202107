@@ -1,0 +1,20 @@
+class Solution {
+public:
+    vector<vector<int>> res;
+    vector<vector<int>> combine(int n, int k) {
+        vector<int> track;
+        myfunction(n,k,1,track);
+        return res;
+    }
+    void myfunction(int n,int k,int position,vector<int>& track){
+        if(track.size()==k){
+            res.push_back(track);
+            return;
+        }
+        for(int i=position;i<=n;i++){
+            track.push_back(i);
+            myfunction(n,k,i+1,track);
+            track.pop_back();
+        }
+    }
+};
