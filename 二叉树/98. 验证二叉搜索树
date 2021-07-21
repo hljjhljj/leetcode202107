@@ -1,0 +1,13 @@
+class Solution {
+public:
+    bool isValidBST(TreeNode* root) {
+        return myfunction(root,LONG_MIN,LONG_MAX);//这题int会溢出
+    }
+    bool myfunction(TreeNode* root,long long umin,long long umax){
+        if(!root) return true;
+        if(root->val>=umax || root->val<=umin) return false;//不能有重复元素
+        return myfunction(root->left,umin,root->val)
+               &&
+               myfunction(root->right,root->val,umax);
+    }
+};
