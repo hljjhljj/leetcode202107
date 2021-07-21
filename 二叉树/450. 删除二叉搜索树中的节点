@@ -1,0 +1,27 @@
+class Solution {
+public:
+    TreeNode* deleteNode(TreeNode* root, int key) {
+        if(!root) return nullptr;
+        if(root->val==key){
+            if(!root->left) return root->right;
+            if(!root->right) return root->left;
+            //接下来是都不为空的时候，取右节点中的最小节点代替root
+            TreeNode* minnode=myfunction(root->right);
+            root->val=minnode->val;
+            root->right=deleteNode(root->right,root->val);
+        }
+        else if(root->val>key){
+            root->left=deleteNode(root->left,key);
+        }
+        else{
+            root->right=deleteNode(root->right,key);
+        }
+        return root;
+    }
+    TreeNode* myfunction(TreeNode* root){
+        while(root->left){
+            root=root->left;
+        }
+        return root;
+    }
+};
