@@ -1,0 +1,17 @@
+class Solution {
+public:
+    int numTrees(int n) {
+        return myfunction(1,n);
+    }
+
+    int myfunction(int left,int right){
+        if(left>=right) return 1;
+        int res=0;
+        for(int i=left;i<=right;i++){
+            int low=myfunction(left,i-1);
+            int high=myfunction(i+1,right);
+            res+=low*high;
+        }
+        return res;
+    }
+};
