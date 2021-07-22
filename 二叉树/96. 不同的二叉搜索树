@@ -1,3 +1,4 @@
+//没加备忘录，复杂度高，超出时间限制
 class Solution {
 public:
     int numTrees(int n) {
@@ -12,6 +13,27 @@ public:
             int high=myfunction(i+1,right);
             res+=low*high;
         }
+        return res;
+    }
+};
+
+//加上备忘录 通过
+class Solution {
+public:
+    int numTrees(int n) {
+        vector<vector<int>> mem(n+1,vector<int>(n+1,0));
+        return myfunction(1,n,mem);
+    }
+    int myfunction(int left,int right,vector<vector<int>>& mem){
+        if(left>=right) return 1;
+        if(mem[left][right]!=0) return mem[left][right];
+        int res=0;
+        for(int i=left;i<=right;i++){
+            int low=myfunction(left,i-1,mem);
+            int high=myfunction(i+1,right,mem);
+            res+=low*high;
+        }
+        mem[left][right]=res;
         return res;
     }
 };
