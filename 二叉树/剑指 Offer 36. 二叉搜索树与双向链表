@@ -1,0 +1,22 @@
+class Solution {
+public:
+    Node *pre=nullptr,*head=nullptr;
+    Node* treeToDoublyList(Node* root) {
+        if(!root) return nullptr;
+        myfunction(root);
+        head->left=pre;
+        pre->right=head;
+        return head;
+    }
+    void myfunction(Node* cur){
+        if(!cur) return;
+        myfunction(cur->left);//中序遍历
+        if(!pre) head=cur;//说明是第一个节点
+        else{
+            pre->right=cur;
+            cur->left=pre;
+        }
+        pre=cur;
+        myfunction(cur->right);
+    }
+};
