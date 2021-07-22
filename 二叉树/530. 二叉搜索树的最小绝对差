@@ -1,0 +1,15 @@
+class Solution {
+public:
+    int res=INT_MAX,pre=-1;
+    int getMinimumDifference(TreeNode* root) {
+        myfunction(root);
+        return res;
+    }
+    void myfunction(TreeNode* root) {
+        if(!root) return;
+        myfunction(root->left);
+        if(pre!=-1) res=min(res,root->val-pre);
+        pre=root->val;
+        myfunction(root->right);
+    }
+};
