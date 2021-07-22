@@ -1,0 +1,37 @@
+//不能AC!!!!不知道为啥
+class Solution {
+public:
+    string minWindow(string s, string t) {
+        unordered_map<char,int> need,windows;//need保存需要的字符数，windows保存窗口中有哪些字符
+        for(char c:t) need[c]++;//初始化need
+
+        int vaild=0;//当vaild=need.size()时符合条件
+        int start=0,len=INT_MAX;//起始值和长度定位子串
+        int left=0,right=0;//定位窗口
+        while(right<s.size()){
+            //扩展窗口
+            char c=s[right];
+            right++;
+
+            if(need.count(c)){
+                windows[c]++;
+                if(windows[c]==need[c]) vaild++;
+            }
+                
+            while(vaild==need.size() && left<=right){
+                //收缩窗口
+                if(right-left+1<len){
+                    start=left;
+                    left=right-left+1;
+                }//符合条件的话更新结果
+                char c=s[left];
+                left++;
+                if(need.count(c)){
+                    if(windows[c]==need[c]) vaild--;
+                    windows[c]--;
+                }//把需要的字符移出窗口了！
+            }
+        }
+        return len==INT_MAX?"":s.substr(start,len);
+    }
+};
