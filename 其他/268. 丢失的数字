@@ -1,0 +1,23 @@
+//借助异或，自己和自己为0，自己和0为自己，落单的那个就是缺失的元素
+class Solution {
+public:
+    int missingNumber(vector<int>& nums) {
+        int res=nums.size();//res=n,因为一会儿for循环到不了n
+        for(int i=0;i<nums.size();i++){
+            res=res^i^nums[i];
+        }
+        return res;
+    }
+};
+
+//简单的思想1+2+...+n-sum(nums)
+class Solution {
+public:
+    int missingNumber(vector<int>& nums) {
+        int res=nums.size();//res=n,因为一会儿for循环到不了n
+        for(int i=0;i<nums.size();i++){
+            res=res+i-nums[i];
+        }
+        return res;
+    }
+};
