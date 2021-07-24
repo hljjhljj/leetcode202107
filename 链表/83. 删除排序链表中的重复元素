@@ -1,0 +1,16 @@
+class Solution {
+public:
+    ListNode* deleteDuplicates(ListNode* head) {
+        if(!head) return head;
+        ListNode *slow=head,*fast=head;
+        while(fast){
+            if(slow->val!=fast->val){
+                slow->next=fast;
+                slow=slow->next;
+            }
+            fast=fast->next;
+        }
+        slow->next=nullptr;//删除后面的重复元素
+        return head;
+    }
+};
