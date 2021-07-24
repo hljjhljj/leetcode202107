@@ -1,0 +1,41 @@
+//前缀和最朴素的原理，但是复杂度高不能通过
+class Solution {
+public:
+    int subarraySum(vector<int>& nums, int k) {
+        //前缀和技巧，把前i个和存储在store中
+        int res=0;
+        int store[nums.size()+1];
+        store[0]=0;
+        for(int i=0;i<nums.size();i++){
+            store[i+1]=store[i]+nums[i];
+        }
+        for(int i=1;i<=nums.size();i++){
+            for(int j=0;j<i;j++){
+                if(store[i]-store[j]==k) res++;
+            }
+        }
+        return res;
+    }
+};
+
+//单层循环 哈希优化
+class Solution {
+public:
+    int subarraySum(vector<int>& nums, int k) {
+        //前缀和技巧，把前i个和存储在store中
+        int res=0;
+        int sum=0;
+        unordered_map<int,int> map;
+        map[0]=1;//base case
+        for(int i=0;i<nums.size();i++){
+            sum+=nums[i];
+            //上一种方法中if(store[i]-store[j]==k)
+            //括号中可变为store[j]==store[i]-k
+            if(map.find(sum-k)!=map.end()){
+                res+=map[sum-k];
+            }
+            map[sum]++;
+        }
+        return res;
+    }
+};
