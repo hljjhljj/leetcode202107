@@ -1,0 +1,15 @@
+class Solution {
+public:
+    int findKthPositive(vector<int>& arr, int k) {
+        int res=-1;
+        int count=0;//记录目前缺失的个数
+        for(int i=0;i<arr.size();i++){
+            while(arr[i]>i+1+count){//i+1+count是应该是的值
+                res=i+1+count;//更新缺失元素
+                count++;
+                if(count==k) return res;
+            }
+        }
+        return arr.back()+k-count;//count<k，需要在arr后面部几位
+    }
+};
