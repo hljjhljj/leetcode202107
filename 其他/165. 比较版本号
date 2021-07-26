@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int compareVersion(string version1, string version2) {
+        int len1=version1.size(),len2=version2.size();
+        int index1=0,index2=0;
+        while(index1<len1 || index2<len2){
+            int count1=0,count2=0;
+            while(index1<len1 && version1.at(index1)!='.'){
+                count1=count1*10+(version1.at(index1)-'0');
+                index1++;
+            }
+            while(index2<len2 && version2.at(index2)!='.'){
+                count2=count2*10+(version2.at(index2)-'0');
+                index2++;
+            }
+            if(count1!=count2) return count1>count2?1:-1;
+            if(index1<len1 && version1.at(index1)=='.') index1++;
+            if(index2<len2 && version2.at(index2)=='.') index2++;
+        }
+        return 0;
+    }
+};
