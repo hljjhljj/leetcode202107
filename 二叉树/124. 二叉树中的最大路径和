@@ -1,0 +1,18 @@
+class Solution {
+public:
+    int res=INT_MIN;
+    int maxPathSum(TreeNode* root) {
+        dfs(root);
+        return res;
+    }
+    int dfs(TreeNode* root){
+        if(!root) return 0;
+        int left=dfs(root->left);
+        int right=dfs(root->right);
+        int temp1=root->val+max(0,left)+max(0,right);//不上到root的父节点
+        //需要和0做对比，如果是负数，那么不将其加入了
+        int temp2=root->val+max(0,max(left,right));
+        res=max(res,max(temp1,temp2));
+        return temp2;
+    }
+};
