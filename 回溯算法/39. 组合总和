@@ -1,0 +1,21 @@
+class Solution {
+public:
+    vector<vector<int>> res;
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        vector<int> trace;
+        myfunction(candidates,target,trace,0);
+        return res;
+    }
+    void myfunction(vector<int>& candidates, int target, vector<int>& trace,int index){
+        if(target==0){
+            res.push_back(trace);
+            return;
+        }
+        for(int i=index;i<candidates.size();i++){
+            if(target<candidates[i]) continue;
+            trace.push_back(candidates[i]);
+            myfunction(candidates,target-candidates[i],trace,i);
+            trace.pop_back();
+        }
+    }
+};
