@@ -1,0 +1,26 @@
+class Solution {
+public:
+    ListNode* reverseKGroup(ListNode* head, int k) {
+        if(!head) return head;
+        ListNode *left=head,*right=head;
+        for(int i=0;i<k;i++){
+            if(!right) return head;//不足k个不进行反转
+            right=right->next;
+        }
+        ListNode *newhead=reverse(left,right);
+        left->next=reverseKGroup(right,k);
+        return newhead;
+    }
+
+    //反转区间内链表[left,right)
+    ListNode* reverse(ListNode *left,ListNode *right){
+        ListNode *pre=nullptr,*cur=left;
+        while(cur!=right){
+            ListNode *tmp=cur->next;
+            cur->next=pre;
+            pre=cur;
+            cur=tmp;
+        }
+        return pre;
+    }
+};
