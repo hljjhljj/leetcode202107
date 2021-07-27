@@ -1,0 +1,32 @@
+class Solution {
+public:
+    bool isPalindrome(ListNode* head) {
+        if(!head) return true;
+        ListNode *slow=head,*fast=head;
+        while(fast && fast->next){
+            slow=slow->next;
+            fast=fast->next->next;
+        }//快慢指针找到中点
+        //此时说明因为fast->next为空跳出循环，长度为奇数
+        //否则说明是因为fast为空跳出循环，长度为偶数
+        if(fast) slow=slow->next;
+        ListNode *newhead=reverse(slow);
+        while(newhead){
+            if(newhead->val!=head->val) return false;
+            newhead=newhead->next;
+            head=head->next;
+        }
+        return true;
+    }
+    //反转链表
+    ListNode* reverse(ListNode* head){
+        ListNode *pre=nullptr,*cur=head;
+        while(cur){
+            ListNode *tmp=cur->next;
+            cur->next=pre;
+            pre=cur;
+            cur=tmp;
+        }
+        return pre;
+    }
+};
