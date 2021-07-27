@@ -4,7 +4,8 @@ public:
         if(lists.empty()) return nullptr;
         return merge(lists,0,lists.size()-1);
     }
-
+    
+    //两两合并，用的是归并排序的技巧，归并的递归法
     ListNode* merge(vector<ListNode*>& lists,int low,int high){
         if(low==high) return lists[low];
         int mid=(low+high)/2;
