@@ -1,0 +1,19 @@
+class Solution {
+public:
+    void nextPermutation(vector<int>& nums) {
+        int i=nums.size()-2,j=nums.size()-1,k=nums.size()-1;
+        while(i>=0){
+            if(nums[i]<nums[j]) break;
+            i--;j--;
+        }//寻找一对相邻值nums[i]<nums[j]
+        if(i>=0){//不是最大排序（存在下一个更大排序）
+            while(k>=j && nums[i]>=nums[k]) k--;//从后向前[j,end)寻找第一个大于nums[i]的值
+            swap(nums[i],nums[k]);
+        }
+        //将[j,end)重排为升序，实际上逆序即可
+        for(int k=nums.size()-1;k>=j;k--,j++){
+            swap(nums[j],nums[k]);
+        }
+        return;
+    }
+};
