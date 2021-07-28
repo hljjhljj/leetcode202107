@@ -1,0 +1,27 @@
+class Solution {
+public:
+    vector<int> getLeastNumbers(vector<int>& arr, int k) {
+       fastsort(arr,0,arr.size()-1,k);
+       vector<int> res;
+       for (int i = 0; i < k; ++i) {
+            res.push_back(arr[i]);
+       }
+       return res;
+    }
+
+    void fastsort(vector<int>& arr, int left, int right, int k){
+        if(left>=right) return;
+        int i=left,j=right;
+        int base=arr[left];
+        while(i<j){
+            while(arr[j]>base && i<j) j--;
+            while(arr[i]<=base && i<j) i++;
+            if(i<j) swap(arr[i],arr[j]);
+        }
+        arr[left]=arr[i];
+        arr[i]=base;
+        if(i==k) return;
+        else if(i<k) fastsort(arr,i+1,right,k);
+        else fastsort(arr,left,i-1,k);
+    }
+};
