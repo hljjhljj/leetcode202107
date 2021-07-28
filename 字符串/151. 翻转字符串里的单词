@@ -1,0 +1,24 @@
+class Solution {
+public:
+    string reverseWords(string s) {
+        s=s+' ';//预先再最后加上空格，以防止最后一个单词没有空格出发push
+        stack<string> stack;
+        int index=0;
+        string tmp;
+        while(index<s.size()){
+            if(tmp.size() && s.at(index)==' '){
+                stack.push(tmp);
+                tmp="";
+            }
+            else if(s.at(index)!=' ') tmp=tmp+s.at(index);
+            index++;
+        }
+        string res;
+        while(stack.size()>=2){
+            res=res+stack.top()+' ';
+            stack.pop();
+        }
+        res=res+stack.top();
+        return res;
+    }
+};
