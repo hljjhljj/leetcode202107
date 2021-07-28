@@ -1,0 +1,19 @@
+class Solution {
+public:
+    vector<vector<int>> generateMatrix(int n) {
+        vector<vector<int>> res(n,vector<int>(n,0));
+        int index=1,target=n*n;
+        int left=0,right=n-1,low=0,high=n-1;
+        while(index<=target){
+            for(int i=left;i<=right;i++) res[low][i]=index++;
+            low++;
+            for(int j=low;j<=high;j++) res[j][right]=index++;
+            right--;
+            for(int i=right;i>=left;i--) res[high][i]=index++;
+            high--;
+            for(int j=high;j>=low;j--) res[j][left]=index++;
+            left++;
+        }
+        return res;
+    }
+};
