@@ -1,0 +1,15 @@
+class Solution {
+public:
+    int coinChange(vector<int>& coins, int amount) {
+        vector<int> dp(amount+1,amount+1);
+        //不能把初始值设置为INT_MAX，因为有可能会出现INT_MAX+INT_MAX溢出
+        //dp[i]代表目标金额为i的时候最少的硬币数，base case dp[0]=0;
+        dp[0]=0;
+        for(int i=1;i<=amount;i++){
+            for(int coin:coins){
+                if(i>=coin) dp[i]=min(dp[i],1+dp[i-coin]);
+            }
+        }
+        return dp[amount]==amount+1?-1:dp[amount];
+    }
+};
