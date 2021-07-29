@@ -1,0 +1,25 @@
+//线性搜索
+class Solution {
+public:
+    int findPeakElement(vector<int>& nums) {
+        for(int i=0;i<nums.size()-1;i++){
+            if(nums[i]>nums[i+1]) return i;
+        }
+        return nums.size()-1;
+    }
+};
+
+//二分搜索
+class Solution {
+public:
+    int findPeakElement(vector<int>& nums) {
+        int left=0,right=nums.size()-1;
+        while(left<right){
+            int mid=(left+right)/2;
+            //nums[mid]>nums[mid+1]说明峰值在(left,mid]，mid有可能是峰值
+            if(nums[mid]>nums[mid+1]) right=mid;
+            else left=mid+1;
+        }
+        return left;
+    }
+};
