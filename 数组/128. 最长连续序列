@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int longestConsecutive(vector<int>& nums) {
+        unordered_set<int> numscount;
+        int res=0;
+        for(auto num:nums){
+            numscount.insert(num);
+        }
+
+        for(auto num:nums){
+            //为了保证只从每个连续序列的最小一个开始，否则会超时
+            if(!numscount.count(num-1)){
+                int len=1;
+                while(numscount.count(++num)){
+                    len++;
+                }
+                res=max(res,len);
+            }
+        }
+        return res;        
+    }
+};
