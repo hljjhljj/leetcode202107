@@ -1,0 +1,29 @@
+class Solution {
+public:
+    int search(vector<int>& nums, int target) {
+        //可以查一个左边界查一个右边界相减
+        vector<int> res;
+        int left=0,right=nums.size()-1;//[left,right]
+        //先寻找左边界
+        while(left<=right){
+            int mid=left+(right-left)/2;
+            if(nums[mid]>target) right=mid-1;
+            if(nums[mid]==target) right=mid-1;
+            if(nums[mid]<target) left=mid+1;
+        }
+        if(left>=nums.size() || nums[left]!=target) res.push_back(-1);
+        else res.push_back(left);
+        //再寻找右边界
+        left=0,right=nums.size()-1;//[left,right]
+        while(left<=right){
+            int mid=left+(right-left)/2;
+            if(nums[mid]>target) right=mid-1;
+            if(nums[mid]==target) left=mid+1;
+            if(nums[mid]<target) left=mid+1;
+        }
+        if(left-1<0 || nums[left-1]!=target) res.push_back(-1);
+        else res.push_back(left-1);
+        
+        return res[0]==-1?0:res[1]-res[0]+1;
+    }
+};
