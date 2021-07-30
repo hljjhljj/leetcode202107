@@ -1,0 +1,18 @@
+class Solution {
+public:
+    double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
+        int count=(nums1.size()+nums2.size())/2+1;//不论奇偶这个数都是要求的
+        int pre=0,cur=0;//pre记录上一个数字
+        int index1=0,index2=0;
+        while(count-->0){
+            pre=cur;
+            if(index1<nums1.size() && index2<nums2.size()){
+                if(nums1[index1]<nums2[index2]) cur=nums1[index1++];
+                else cur=nums2[index2++];
+            }
+            else if(index1<nums1.size())  cur=nums1[index1++];
+            else if(index2<nums2.size())  cur=nums2[index2++];
+        }
+        return (nums1.size()+nums2.size())%2==0?(pre+cur)/2.0:cur;
+    }
+};
