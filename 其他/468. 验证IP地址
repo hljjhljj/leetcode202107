@@ -1,0 +1,45 @@
+class Solution {
+public:
+    string validIPAddress(string IP) {
+        if(isIPv4(IP)) return "IPv4";
+        else if(isIPv6(IP)) return "IPv6";
+        else return "Neither";
+    }
+
+    vector<string> split(string IP,string flag){
+        vector<string> res;
+        int i;
+        while((i=IP.find(flag)) && i!=IP.npos){
+            res.push_back(IP.substr(0,i));
+            IP=IP.substr(i+1);
+        }
+        res.push_back(IP);
+        return res;
+    }
+
+    bool isIPv4(string IP){
+        vector<string> tmp=split(IP,".");
+        if(tmp.size()!=4) return false;
+        for(string s:tmp){
+            // if(s.empty()) return false;
+            if(s.size()==0 || s.size()>3 || (s[0]=='0' && s.size()!=1)) return false;
+            for(char c:s){
+                if(!isdigit(c)) return false;
+            }
+            if(stoi(s)>255) return false;
+        }
+        return true;
+    }
+
+    bool isIPv6(string IP){
+        vector<string> tmp=split(IP,":");
+        if(tmp.size()!=8) return false;
+        for(string s:tmp){
+            if(s.size()==0 || s.size()>4) return false;
+            for(char c:s){
+                if(!(isdigit(c) || (c>='a'&&c<='f') || (c>='A'&&c<='F'))) return false;
+            }
+        }
+        return true;
+    }
+};
