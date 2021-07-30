@@ -1,0 +1,24 @@
+class Solution {
+public:
+    bool isCompleteTree(TreeNode* root) {
+        queue<TreeNode*> queue;
+        queue.push(root);
+        bool flag=false;//代表发现了一个空节点
+        while(!queue.empty()){
+            root=queue.front();
+            queue.pop();
+            if(!root){
+                flag=true;
+                continue;
+            }//发现了空节点
+            //非最后一层不满的情况也包含了，只要出现了空节点
+            //其后必定不能再出现非空节点
+            else if(flag) return false;
+            else{
+                queue.push(root->left);
+                queue.push(root->right);
+            }
+        }
+        return true;
+    }
+};
