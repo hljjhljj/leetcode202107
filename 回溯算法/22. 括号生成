@@ -1,0 +1,31 @@
+class Solution {
+public:
+    vector<string> res;
+    vector<string> generateParenthesis(int n) {
+        string tmp;
+        int countleft=0,countright=0;
+        myfunction(n,tmp,countleft,countright);
+        return res;
+    }
+    void myfunction(int n,string& tmp,int& countleft,int& countright){
+        //countleft计算左括号个数，countright计算右括号的
+        if(tmp.size()==2*n){
+            res.push_back(tmp);
+            return;
+        }
+        if(countleft<n){
+            countleft++;
+            tmp=tmp+"(";
+            myfunction(n,tmp,countleft,countright);
+            tmp=tmp.substr(0,tmp.size()-1);
+            countleft--;
+        }
+        if(countright<countleft){
+            countright++;
+            tmp=tmp+")";
+            myfunction(n,tmp,countleft,countright);
+            tmp=tmp.substr(0,tmp.size()-1);
+            countright--;
+        }
+    }
+};
