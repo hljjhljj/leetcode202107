@@ -1,0 +1,32 @@
+class Solution {
+public:
+    vector<string> res;
+    vector<string> restoreIpAddresses(string s) {
+        vector<string> subres;
+        myfunction(s,0,subres);
+        return res;
+    }
+    void myfunction(string s,int start,vector<string>& subres){
+        if(subres.size()==4 && start==s.size()){
+            //获得一个答案
+            string tempres;
+            for(int i=0;i<4;i++){
+                tempres=tempres+subres[i]+'.';
+            }
+            res.push_back(tempres.substr(0,tempres.size()-1));//删除最后一个.
+            return;
+        }
+        //剪枝，减去不符合标准的答案
+        if(subres.size()==4 && start<s.size()-1) return;
+        //开始构造选项
+        for(int len=1;len<=3;len++){
+            if(start+len-1>=s.size()) return;//超长了
+            string temp=s.substr(start,len);
+            if(len!=1 && temp.substr(0,1)=="0") return;//0开头不符合标准
+            if(stoi(temp)>255) return;//大于255不符合标准
+            subres.push_back(temp);
+            myfunction(s,start+len,subres);
+            subres.pop_back();//撤销选择
+        }
+    }
+};
