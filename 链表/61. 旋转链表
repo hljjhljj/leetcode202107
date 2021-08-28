@@ -1,0 +1,23 @@
+class Solution {
+public:
+    ListNode* rotateRight(ListNode* head, int k) {
+        if(k==0 || !head || !head->next){
+            return head;
+        }
+        int n=1;//计算链表长度
+        ListNode* tmp=head;
+        while(tmp->next){
+            tmp=tmp->next;
+            n++;
+        }
+        int count=n-k%n;
+        if(count==n) return head;
+        tmp->next=head;//首尾相连
+        while(count--){
+            tmp=tmp->next;
+        }
+        ListNode* newhead=tmp->next;
+        tmp->next=nullptr;
+        return newhead;
+    }
+};
