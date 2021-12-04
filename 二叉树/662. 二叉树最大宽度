@@ -4,7 +4,7 @@ public:
         if(!root)    return 0;
         int res=1;
         queue<pair<TreeNode*,int>> queue;//int记录节点位置
-        queue.push({root,1});
+        queue.push({root,0});
         while(!queue.empty()){
             int count=queue.size(),index;
             int start=queue.front().second;//本层起始编号
@@ -12,7 +12,7 @@ public:
                 root=queue.front().first;
                 index=queue.front().second;
                 queue.pop();
-                if(root->left) queue.push({root->left,(index-start)*2});
+                if(root->left) queue.push({root->left,(index-start)*2});//(index-start)*2,每层从0开始编号，不然会溢出
                 if(root->right) queue.push({root->right,(index-start)*2+1});
             }
             res=max(res,index-start+1);
