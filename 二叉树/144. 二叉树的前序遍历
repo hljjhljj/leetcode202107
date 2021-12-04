@@ -39,19 +39,17 @@ public:
 //栈的思想，按层次倒着进栈，利用后进先出解决顺序问题
 class Solution {
 public:
-    vector<int> inorderTraversal(TreeNode* root) {
+    vector<int> preorderTraversal(TreeNode* root) {
         vector<int> res;  
         if(!root) return res;
         stack<TreeNode* > stack;
-        while(!stack.empty() || root){
-            while(root){
-                stack.push(root);
-                root=root->left;
-            }
+        stack.push(root);
+        while(!stack.empty()){
             root=stack.top();
             stack.pop();
             res.push_back(root->val);
-            root=root->right;
+            if(root->right) stack.push(root->right);
+            if(root->left) stack.push(root->left);
         }
         return res;
     }
