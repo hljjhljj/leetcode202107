@@ -69,8 +69,29 @@ public:
 
 
 
-//4、非递归（不通用）
-//栈的思想，按层次倒着进栈，利用后进先出解决顺序问题
+//4、模拟前序遍历的手算（普遍），再reverse一下
+class Solution {
+public:
+    vector<int> postorderTraversal(TreeNode* root) {
+        vector<int> res;  
+        if(!root) return res;
+        stack<TreeNode* > stack;
+        while(!stack.empty() || root){
+            while(root){
+                res.push_back(root->val);
+                stack.push(root);
+                root=root->right;
+            }
+            root=stack.top()->left;
+            stack.pop();
+        }
+        reverse(res.begin(),res.end());
+        return res;
+    }
+};
+
+
+//5、模拟前序遍历的不普遍的那个方法，再reverse一下
 class Solution {
 public:
     vector<int> postorderTraversal(TreeNode* root) {
