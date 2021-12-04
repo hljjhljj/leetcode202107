@@ -66,3 +66,26 @@ public:
         return res;
     }
 };
+
+
+
+//4、非递归（不通用）
+//栈的思想，按层次倒着进栈，利用后进先出解决顺序问题
+class Solution {
+public:
+    vector<int> postorderTraversal(TreeNode* root) {
+        vector<int> res;  
+        if(!root) return res;
+        stack<TreeNode* > stack;
+        stack.push(root);
+        while(!stack.empty()){
+            root=stack.top();
+            stack.pop();
+            res.push_back(root->val);
+            if(root->left) stack.push(root->left);
+            if(root->right) stack.push(root->right);
+        }
+        reverse(res.begin(),res.end());
+        return res;
+    }
+};
