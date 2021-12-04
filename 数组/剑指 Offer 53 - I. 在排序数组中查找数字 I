@@ -11,7 +11,7 @@ public:
             if(nums[mid]==target) right=mid-1;
             if(nums[mid]<target) left=mid+1;
         }
-        if(left>=nums.size() || nums[left]!=target) res.push_back(-1);
+        if(left>=nums.size() || nums[left]!=target) return 0;
         else res.push_back(left);
         //再寻找右边界
         left=0,right=nums.size()-1;//[left,right]
@@ -21,9 +21,9 @@ public:
             if(nums[mid]==target) left=mid+1;
             if(nums[mid]<target) left=mid+1;
         }
-        if(left-1<0 || nums[left-1]!=target) res.push_back(-1);
-        else res.push_back(left-1);
+        //如果有左边界，说明存在这个数，则一定有右边界
+        res.push_back(left-1);
         
-        return res[0]==-1?0:res[1]-res[0]+1;
+        return res[1]-res[0]+1;
     }
 };
