@@ -5,8 +5,8 @@ public:
         int gap=nums.size()/2;
         for(;gap>0;gap=gap/2){
             for(int i=0;i<gap;i++){
-                for(int j=i+gap;j<nums.size();j=j+gap){
-                    int k=j;//内部就是选择排序了
+                for(int j=i+gap;j<nums.size();j=j+gap){//内部就是选择排序了
+                    int k=j;
                     int target = nums[j];
                     while((k-gap>=0) && target<nums[k-gap] ){
                         nums[k]=nums[k-gap];
