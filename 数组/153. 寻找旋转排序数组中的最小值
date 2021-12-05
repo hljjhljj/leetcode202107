@@ -7,6 +7,7 @@ public:
             if(nums[mid]<nums[right]) right=mid;
             if(nums[mid]>nums[right]) left=mid+1;
             //nums[mid]=nums[right]情况不存在
+            //为什么不拿mid和left比较？就是因为存在mid=left的情况，因为整数是舍弃小数的
         }
         return nums[left];
     }
