@@ -1,8 +1,8 @@
-//不能AC!!!!不知道为啥
 class Solution {
 public:
     string minWindow(string s, string t) {
-        unordered_map<char,int> need,windows;//need保存需要的字符数，windows保存窗口中有哪些字符
+        unordered_map<char,int> need;//need保存需要的字符数，windows保存窗口中有哪些字符
+        unordered_map<char,int> windows;
         for(char c:t) need[c]++;//初始化need
 
         int vaild=0;//当vaild=need.size()时符合条件
@@ -18,18 +18,18 @@ public:
                 if(windows[c]==need[c]) vaild++;
             }
                 
-            while(vaild==need.size() && left<=right){
+            while(vaild==need.size()){
                 //收缩窗口
-                if(right-left+1<len){
+                if(right-left<len){
                     start=left;
-                    left=right-left+1;
+                    len=right-left;
                 }//符合条件的话更新结果
-                char c=s[left];
+                char d=s[left];
                 left++;
-                if(need.count(c)){
-                    if(windows[c]==need[c]) vaild--;
-                    windows[c]--;
+                if(need.count(d)){
+                    if(windows[d]==need[d]) vaild--;
                 }//把需要的字符移出窗口了！
+                windows[d]--;
             }
         }
         return len==INT_MAX?"":s.substr(start,len);
