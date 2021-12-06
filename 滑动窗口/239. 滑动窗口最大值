@@ -17,7 +17,7 @@ public:
                 que.pop_back();
             }
             que.push_back(j);
-            while(que.front()<j-k+1){
+            while(que.front()<j-k+1){//也就是if(que.front()<j-k+1)
                 que.pop_front();
             }
             res.push_back(nums[que.front()]);
