@@ -1,0 +1,37 @@
+class Solution {
+public:
+    vector<vector<string>> res;
+    vector<vector<string>> solveNQueens(int n) {
+        vector<string> temp(n,string(n,'.'));
+        myfunction(n,temp,0);
+        return res;
+    }
+
+    void myfunction(int n,vector<string>& temp,int row){
+        if(row==n){
+            res.push_back(temp);
+            return;
+        }
+        for(int i=0;i<n;i++){
+            if(!isValid(n,temp,row,i))
+                continue;
+            temp[row][i]='Q';
+            myfunction(n,temp,row+1);
+            temp[row][i]='.';
+        }
+        return ;
+    }
+
+    bool isValid(int n,vector<string>& temp,int row,int col){
+        for(int i=0;i<row;i++){
+            if(temp[i][col]=='Q') return false;
+        }
+        for(int i=row-1,j=col-1;i>=0 && j>=0;i--,j--){
+            if(temp[i][j]=='Q') return false;
+        }
+        for(int i=row-1,j=col+1;i>=0 && j<n;i--,j++){
+            if(temp[i][j]=='Q') return false;
+        }
+        return true;
+    }
+};
