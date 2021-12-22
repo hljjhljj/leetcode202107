@@ -1,14 +1,15 @@
+//没有看太懂
 class Solution {
 public:
     ListNode* reverseList(ListNode* head) {
-        if(!head) return head;
-        ListNode* per=nullptr,*cur=head;
-        while(cur){
-            ListNode* temp=cur->next;
-            cur->next=per;
-            per=cur;
-            cur=temp;
+        if (head == NULL) { return NULL; }
+        ListNode* cur = head;
+        while (head->next != NULL) {
+            ListNode* t = head->next->next;
+            head->next->next = cur;
+            cur = head->next;
+            head->next = t;
         }
-        return per;
+        return cur;
     }
 };
