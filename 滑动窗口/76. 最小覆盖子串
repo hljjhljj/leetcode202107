@@ -28,8 +28,9 @@ public:
                 left++;
                 if(need.count(d)){
                     if(windows[d]==need[d]) vaild--;
+                    windows[d]--;
                 }//把需要的字符移出窗口了！
-                windows[d]--;
+                
             }
         }
         return len==INT_MAX?"":s.substr(start,len);
