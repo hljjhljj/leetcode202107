@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int rand10() {
+        while(1){
+            int a=rand7();
+            int b=rand7();
+            int num=(a-1)*7+b; //rand 49
+            if(num<=40) return num%10+1;
+
+            a=num-40;
+            b=rand7();
+            num=(a-1)*7+b; //rand 7*9=63
+            if(num<=60) return num%10+1;
+
+            a=num-60;
+            b=rand7();
+            num=(a-1)*7+b; //rand 3*7=21;
+            if(num<=20) return num%10+1;
+        }
+    }
+};
