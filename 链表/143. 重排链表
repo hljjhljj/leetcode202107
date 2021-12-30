@@ -1,0 +1,17 @@
+class Solution {
+public:
+    void reorderList(ListNode* head) {
+        //依次逆序
+        if(!head || !head->next) return ;
+        ListNode* pre=nullptr,*cur=head->next;
+        while(cur){
+            ListNode* tmp=cur->next;
+            cur->next=pre;
+            pre=cur;
+            cur=tmp;
+        }
+        head->next=pre;
+        reorderList(head->next);
+        return;
+    }
+};
