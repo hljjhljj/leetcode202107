@@ -15,6 +15,7 @@ public:
         int len=prices.size();
         int dp[len][2];
         dp[0][0]=0;dp[0][1]=-prices[0];//防止0-1=-1数组越界
+        //不限制购买次数时：dp[0][1]=INT_MIN
         for(int i=1;i<len;i++){
             dp[i][0]=max(dp[i-1][0],dp[i-1][1]+prices[i]);
             dp[i][1]=max(dp[i-1][1],-prices[i]);
