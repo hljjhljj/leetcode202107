@@ -15,6 +15,8 @@ public:
             if(target<candidates[i]) continue;
             trace.push_back(candidates[i]);
             myfunction(candidates,target-candidates[i],trace,i);
+            //通过index的方式使得元素可以无限取，如果只能取一次，则传入下一级myfunction的index=i+1；
+            //如果求的是排列，就用used数组判断是否取过
             trace.pop_back();
         }
     }
