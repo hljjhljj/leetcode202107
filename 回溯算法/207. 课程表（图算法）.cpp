@@ -1,4 +1,5 @@
 //是否能学完，判断是否存在循环依赖（环）即可
+//https://mp.weixin.qq.com/s/7nP92FhCTpTKIAplj_xWpA
 class Solution {
 public:
     bool hasCycle = false;
