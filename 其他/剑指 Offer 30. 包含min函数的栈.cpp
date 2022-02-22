@@ -37,9 +37,6 @@ public:
         if(!B.empty()){
             return B.top();
         }
-        else if(!A.empty()){
-            return A.top();
-        }
         return -1;
     }
 };
