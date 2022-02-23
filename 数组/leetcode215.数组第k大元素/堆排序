@@ -1,38 +1,28 @@
 class Solution {
 public:
     int findKthLargest(vector<int>& nums, int k) {
-        build(nums);
         int len=nums.size();
-        for(int i=1;i<len;i++){
-            swap(nums[0],nums[len-i]);
-            adjust(nums,0,len-i);
+        build(nums,len);
+        for(int i=0;i<k;i++){
+            swap(nums[0],nums[len-1-i]);
+            adjust(nums,0,len-1-i);
         }
-
-
-        for(int k=0 ; k<nums.size() ; k++){
-            cout << nums[k] <<endl;
-        }
-        return nums[nums.size()-k];
+        return nums[len-k];
     }
-
-    void build(vector<int>& nums){
-        for(int i=nums.size()/2-1;i>=0;i--){
-            adjust(nums,i,nums.size());
+    void build(vector<int>& nums,int len){
+        for(int i=len/2-1;i>=0;i--){
+            adjust(nums,i,len);
         }
     }
-
-    void adjust(vector<int>& nums, int index,int len){
-        int left = index*2+1;
-        int right = index*2+2;
-        int maxindex = index;
-        if(left<len && nums[left]>nums[index]) maxindex = left;
-        if(right<len && nums[right]>nums[left] && nums[right]>nums[index]) maxindex = right;
-        if(maxindex !=index){
+    void adjust(vector<int>& nums,int index,int len){
+        int left=index*2+1;
+        int right=index*2+2;
+        int maxindex=index;
+        if(left<len && nums[left]>nums[index]) maxindex=left;
+        if(right<len && nums[right]>nums[index] && nums[right]>nums[left]) maxindex=right;
+        if(maxindex!=index){
             swap(nums[index],nums[maxindex]);
             adjust(nums,maxindex,len);
         }
-
     }
-
-    
 };
