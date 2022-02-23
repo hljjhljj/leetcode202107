@@ -13,3 +13,19 @@ public:
         return dp[amount]==amount+1?-1:dp[amount];
     }
 };
+
+//状态压缩
+class Solution {
+public:
+    int coinChange(vector<int>& coins, int amount) {
+        int len1=coins.size(),len2=amount;
+        vector<int> dp(len2+1,amount+1);
+        dp[0]=0;
+        for(int i=1;i<=len1;i++){
+            for(int j=1;j<=len2;j++){
+                if(j>=coins[i-1]) dp[j]=min(dp[j],dp[j-coins[i-1]]+1);
+            }
+        }
+        return dp[len2]>amount?-1:dp[len2];
+    }
+};
