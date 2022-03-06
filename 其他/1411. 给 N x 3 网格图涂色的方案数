@@ -1,0 +1,16 @@
+class Solution {
+public:
+    int numOfWays(int n) {
+        if(n==0) return 0;
+        else if(n==1) return 6+6;
+        long long mod=1000000007;
+        long long m=6,k=6;
+        for(int i=2;i<=n;i++){
+            long long t_m=(3*m)%mod+(2*k)%mod;
+            long long t_k=(2*m)%mod+(2*k)%mod;
+            m=t_m;
+            k=t_k;
+        }
+        return (m+k)%mod;
+    }
+};
