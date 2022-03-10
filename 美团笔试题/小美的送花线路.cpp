@@ -1,4 +1,3 @@
-//https://www.nowcoder.com/questionTerminal/a9980f73060545ca923344098750af18
 #include<iostream>
 #include<vector>
 #include<algorithm>
